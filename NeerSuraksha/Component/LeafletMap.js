@@ -1,14 +1,28 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import { WebView } from "react-native-webview";
+import MapView, { Marker } from "react-native-maps";
 
 const LeafletMap = () => {
 	return (
 		<View style={styles.container}>
-			<WebView
-				source={{ uri: "https://leafletjs.com/examples/quick-start/" }} // You can use any Leaflet map URL here
+			<MapView
 				style={styles.map}
-			/>
+				initialRegion={{
+					latitude: 37.78825,
+					longitude: -122.4324,
+					latitudeDelta: 0.0922,
+					longitudeDelta: 0.0421,
+				}}
+			>
+				<Marker
+					coordinate={{
+						latitude: 37.78825,
+						longitude: -122.4324,
+					}}
+					title="Marker Title"
+					description="Marker Description"
+				/>
+			</MapView>
 		</View>
 	);
 };
