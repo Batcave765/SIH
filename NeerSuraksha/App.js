@@ -1,11 +1,20 @@
-import React from "react";
+import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import LeafletMap from "./Component/LeafletMap";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import Map from "./Component/Map";
+import HeatMap from "./Component/Heatmap";
+import FloatingButton from "./Component/FloatingMap";
+const Stack = createStackNavigator();
+
 const App = () => {
 	return (
-		<View style={styles.container}>
-			<LeafletMap />
-		</View>
+		<NavigationContainer>
+			<Stack.Navigator initialRouteName="Maps">
+				<Stack.Screen name="Map" component={Map} />
+				<Stack.Screen name="HeatMap" component={HeatMap} />
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 };
 
