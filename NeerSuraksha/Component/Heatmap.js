@@ -13,8 +13,8 @@ class HeatMap extends Component {
 		initialPosition: {
 			latitude: 10.9385,
 			longitude: 76.9558,
-			latitudeDelta: 0.06,
-			longitudeDelta: 0.03,
+			latitudeDelta: 0.05,
+			longitudeDelta: 0.02,
 		},
 	};
 

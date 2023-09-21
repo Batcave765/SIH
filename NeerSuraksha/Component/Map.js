@@ -29,8 +29,8 @@ const Map = ({ navigation }) => {
 					const updateLocation = {
 						latitude: locationData.coords.latitude,
 						longitude: locationData.coords.longitude,
-						latitudeDelta: 0.06,
-						longitudeDelta: 0.03,
+						latitudeDelta: 0.05,
+						longitudeDelta: 0.02,
 					};
 					setYourLocation(updateLocation);
 				} catch (error) {
@@ -130,8 +130,8 @@ const Map = ({ navigation }) => {
 					initialRegion={{
 						latitude: location.coords.latitude,
 						longitude: location.coords.longitude,
-						latitudeDelta: 0.06,
-						longitudeDelta: 0.03,
+						latitudeDelta: 0.05,
+						longitudeDelta: 0.02,
 					}}
 				>
 					<Marker

@@ -12,8 +12,8 @@ const YourLocation = ({ onPress, text }) => {
 const styles = StyleSheet.create({
 	container: {
 		position: "absolute",
-		bottom: 30,
-		right: 20,
+		bottom: 80,
+		left: 20,
 		backgroundColor: "green",
 		borderRadius: 50,
 		paddingVertical: 10,
