@@ -18,10 +18,11 @@ const Map = ({ navigation }) => {
     longitudeDelta: 0.03,
   });
   const getDet = () => {
-    return fetch("http://192.168.4.57:8080")
+    return fetch("https://sih-d8bz-git-master-sabari004s-projects.vercel.app/")
       .then((response) => response.json())
       .then((json) => {
         setPoints(json);
+        // console.log(points);
       })
       .catch((error) => {
         console.error(error);

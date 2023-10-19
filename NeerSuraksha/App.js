@@ -8,20 +8,20 @@ import FloatingButton from "./Component/FloatingMap";
 const Stack = createStackNavigator();
 
 const App = () => {
-	return (
-		<NavigationContainer>
-			<Stack.Navigator initialRouteName="Maps">
-				<Stack.Screen name="Map" component={Map} />
-				<Stack.Screen name="HeatMap" component={HeatMap} />
-			</Stack.Navigator>
-		</NavigationContainer>
-	);
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Maps">
+        <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="HeatMap" component={HeatMap} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
+  container: {
+    flex: 1,
+  },
 });
 
 export default App;
