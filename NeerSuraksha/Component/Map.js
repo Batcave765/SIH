@@ -18,7 +18,7 @@ const Map = ({ navigation }) => {
     longitudeDelta: 0.03,
   });
   const getDet = () => {
-    return fetch("https://sih-d8bz-git-master-sabari004s-projects.vercel.app/")
+    return fetch("https://sih-d8bz.vercel.app/")
       .then((response) => response.json())
       .then((json) => {
         setPoints(json);
@@ -58,7 +58,9 @@ const Map = ({ navigation }) => {
   }, []);
 
   const goLocation = () => {
-    mapRef.current.animateToRegion(yourLocation, 0.7 * 1000);
+    if (mapRef.current) {
+      mapRef.current.animateToRegion(yourLocation, 0.7 * 1000);
+    }
   };
 
   return (
