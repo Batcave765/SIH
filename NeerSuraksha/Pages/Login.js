@@ -20,7 +20,7 @@ const Login = () => {
         console.log("Logged in:", userDetails);
 
         // Navigate to the Map component
-        navigation.dispatch(StackActions.replace('Map'));
+        navigation.dispatch(StackActions.replace("NeerSuraksha"));
       } else {
         Alert.alert("Invalid login");
         // Display invalid login message or perform further actions
