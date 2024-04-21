@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { View, StyleSheet, Text, Button } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import ImagesModal from "./ImagesModal";
@@ -9,9 +9,9 @@ import YourLocation from "./YourLocation";
 const Map = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [points, setPoints] = useState([]);
-  const [imageModalVisibility, changeImageModalVisibility] = useState(false);
-  const [selectedMarkerId, setSelectedMarkerId] = useState(null); // Track the selected marker's id
-  const [selectedMarkerImages, setSelectedMarkerImages] = useState({}); // Store images for selected marker
+  const [imageModalVisibility, setImageModalVisibility] = useState(false);
+  const [selectedMarkerId, setSelectedMarkerId] = useState(null);
+  const [selectedMarkerImages, setSelectedMarkerImages] = useState("");
   const mapRef = useRef(null);
   const [yourLocation, setYourLocation] = useState({
     latitude: 0,
@@ -20,15 +20,14 @@ const Map = ({ navigation }) => {
     longitudeDelta: 0.03,
   });
 
-  const getDet = () => {
-    return fetch("https://sih-d8bz.vercel.app/")
-      .then((response) => response.json())
-      .then((json) => {
-        setPoints(json);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const getDet = async () => {
+    try {
+      const response = await fetch("https://sih-d8bz.vercel.app/");
+      const json = await response.json();
+      setPoints(json);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -64,16 +63,17 @@ const Map = ({ navigation }) => {
         `https://sih-d8bz.vercel.app/id/${markerId}`
       );
       const data = await response.json();
-      setSelectedMarkerImages(data.image_url); // Assuming 'images' is the key containing image URLs in the response
+      setSelectedMarkerImages(data.image_url);
+      console.log(data.image_url);
     } catch (error) {
       console.error("Error fetching images for marker:", error);
     }
   };
 
   const handleMarkerPress = (markerId) => {
-    setSelectedMarkerId(markerId); // Store the id of the selected marker
-    fetchImagesForMarker(markerId); // Fetch images for the selected marker
-    changeImageModalVisibility(true); // Show the image modal
+    setSelectedMarkerId(markerId);
+    fetchImagesForMarker(markerId);
+    setImageModalVisibility(true);
   };
 
   const goLocation = () => {
@@ -86,8 +86,8 @@ const Map = ({ navigation }) => {
     <View style={styles.container}>
       <ImagesModal
         modalVisible={imageModalVisibility}
-        handleCloseButton={() => changeImageModalVisibility(false)}
-        images={selectedMarkerImages} // Pass the images to the modal
+        handleCloseButton={() => setImageModalVisibility(false)}
+        images={selectedMarkerImages}
       />
       {location && (
         <MapView
@@ -110,9 +110,9 @@ const Map = ({ navigation }) => {
             pinColor="lightblue"
           />
 
-          {points.map((point, index) => (
+          {points.map((point) => (
             <Marker
-              key={point._id} // Assuming '_id' is unique for each marker
+              key={point._id}
               coordinate={{
                 latitude: point.latitude,
                 longitude: point.longitude,
@@ -120,7 +120,7 @@ const Map = ({ navigation }) => {
               title={point.predicted_class}
               description={point.predicted_class}
               opacity={0.75}
-              onPress={() => handleMarkerPress(point._id)} // Pass the '_id' when marker is pressed
+              onPress={() => handleMarkerPress(point._id)}
             />
           ))}
         </MapView>
