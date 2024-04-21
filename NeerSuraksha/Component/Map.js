@@ -10,6 +10,8 @@ const Map = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [points, setPoints] = useState([]);
   const [imageModalVisibility, changeImageModalVisibility] = useState(false);
+  const [selectedMarkerId, setSelectedMarkerId] = useState(null); // Track the selected marker's id
+  const [selectedMarkerImages, setSelectedMarkerImages] = useState({}); // Store images for selected marker
   const mapRef = useRef(null);
   const [yourLocation, setYourLocation] = useState({
     latitude: 0,
@@ -17,25 +19,24 @@ const Map = ({ navigation }) => {
     latitudeDelta: 0.06,
     longitudeDelta: 0.03,
   });
+
   const getDet = () => {
     return fetch("https://sih-d8bz.vercel.app/")
       .then((response) => response.json())
       .then((json) => {
         setPoints(json);
-        // console.log(points);
       })
       .catch((error) => {
         console.error(error);
       });
   };
+
   useEffect(() => {
     getDet();
     (async () => {
-      // Request permission to access location
       const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status === "granted") {
-        // Get the current location
         const locationData = await Location.getCurrentPositionAsync({});
 
         try {
@@ -57,6 +58,24 @@ const Map = ({ navigation }) => {
     })();
   }, []);
 
+  const fetchImagesForMarker = async (markerId) => {
+    try {
+      const response = await fetch(
+        `https://sih-d8bz.vercel.app/id/${markerId}`
+      );
+      const data = await response.json();
+      setSelectedMarkerImages(data.image_url); // Assuming 'images' is the key containing image URLs in the response
+    } catch (error) {
+      console.error("Error fetching images for marker:", error);
+    }
+  };
+
+  const handleMarkerPress = (markerId) => {
+    setSelectedMarkerId(markerId); // Store the id of the selected marker
+    fetchImagesForMarker(markerId); // Fetch images for the selected marker
+    changeImageModalVisibility(true); // Show the image modal
+  };
+
   const goLocation = () => {
     if (mapRef.current) {
       mapRef.current.animateToRegion(yourLocation, 0.7 * 1000);
@@ -68,6 +87,7 @@ const Map = ({ navigation }) => {
       <ImagesModal
         modalVisible={imageModalVisibility}
         handleCloseButton={() => changeImageModalVisibility(false)}
+        images={selectedMarkerImages} // Pass the images to the modal
       />
       {location && (
         <MapView
@@ -81,7 +101,6 @@ const Map = ({ navigation }) => {
           }}
         >
           <Marker
-            onPress={() => changeImageModalVisibility(true)}
             coordinate={{
               latitude: location.coords.latitude,
               longitude: location.coords.longitude,
@@ -93,8 +112,7 @@ const Map = ({ navigation }) => {
 
           {points.map((point, index) => (
             <Marker
-              onPress={() => changeImageModalVisibility(true)}
-              key={index}
+              key={point._id} // Assuming '_id' is unique for each marker
               coordinate={{
                 latitude: point.latitude,
                 longitude: point.longitude,
@@ -102,6 +120,7 @@ const Map = ({ navigation }) => {
               title={point.predicted_class}
               description={point.predicted_class}
               opacity={0.75}
+              onPress={() => handleMarkerPress(point._id)} // Pass the '_id' when marker is pressed
             />
           ))}
         </MapView>
@@ -113,7 +132,7 @@ const Map = ({ navigation }) => {
         }}
         text="HeatMap"
       />
-      <YourLocation onPress={() => goLocation()} text="YourLocation" />
+      <YourLocation onPress={goLocation} text="YourLocation" />
     </View>
   );
 };
