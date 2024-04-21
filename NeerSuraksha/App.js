@@ -6,15 +6,17 @@ import Map from "./Component/Map";
 import HeatMap from "./Component/Heatmap";
 import Login from "./Pages/Login";
 import FloatingButton from "./Component/FloatingMap";
+import NeerSuraksha from "./Component/NeerSuraksha";
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Map">
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="HeatMap" component={HeatMap} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="NeerSuraksha" component={NeerSuraksha} />
       </Stack.Navigator>
     </NavigationContainer>
   );
