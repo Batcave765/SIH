@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { View, TextInput, Button, Alert, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation hook
+import { StackActions } from "@react-navigation/native";
 
 const Login = () => {
+  const navigation = useNavigation(); // Get navigation object using useNavigation hook
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,9 +18,11 @@ const Login = () => {
         const userDetails = await response.json();
         // Assuming userDetails contains user details if login is successful
         console.log("Logged in:", userDetails);
-        // Display logged in message or perform further actions
+
+        // Navigate to the Map component
+        navigation.dispatch(StackActions.replace('Map'));
       } else {
-        console.log("Invalid login");
+        Alert.alert("Invalid login");
         // Display invalid login message or perform further actions
       }
     } catch (error) {
