@@ -6,9 +6,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text, BottomNavigation } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Map from "./Map";
+import HeatMap from "./Heatmap"; // Import HeatMap component
+import Add from "./Add";
+import HomePage from "../Pages/HomePage";
+import ProfilePage from "../Pages/ProfilePage";
 const Tab = createBottomTabNavigator();
 
-export default function NeerSuraksha() {
+export default function NeerSuraksha({ navigation }) {
+  // Pass navigation prop
   return (
     <Tab.Navigator
       screenOptions={{
@@ -78,7 +83,7 @@ export default function NeerSuraksha() {
       />
       <Tab.Screen
         name="Add"
-        component={Add}
+        component={Addi}
         options={{
           tabBarLabel: "Add",
           tabBarIcon: ({ color, size }) => {
@@ -87,6 +92,16 @@ export default function NeerSuraksha() {
         }}
       />
       <Tab.Screen
+        name="HeatMap"
+        component={HeatMap} // Change component to HeatMap
+        options={{
+          tabBarLabel: "HeatMap",
+          tabBarIcon: ({ color, size }) => {
+            return <Icon name="map" size={size} color={color} />;
+          },
+        }}
+      />
+      {/* <Tab.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
@@ -95,7 +110,7 @@ export default function NeerSuraksha() {
             return <Icon name="cog" size={size} color={color} />;
           },
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Profile"
         component={Profile}
@@ -113,14 +128,14 @@ export default function NeerSuraksha() {
 function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text variant="headlineMedium">Home!</Text>
+      <HomePage />
     </View>
   );
 }
 function Profile() {
   return (
     <View style={styles.container}>
-      <Text variant="headlineMedium">Profile!</Text>
+      <ProfilePage />
     </View>
   );
 }
@@ -131,10 +146,10 @@ function Mapi() {
     </View>
   );
 }
-function Add() {
+function Addi() {
   return (
     <View style={styles.container}>
-      <Text variant="headlineMedium">Add!</Text>
+      <Add />
     </View>
   );
 }

@@ -126,12 +126,12 @@ const Map = ({ navigation }) => {
         </MapView>
       )}
 
-      <FloatingButton
+      {/* <FloatingButton
         onPress={() => {
           navigation.navigate("HeatMap");
         }}
         text="HeatMap"
-      />
+      /> */}
       <YourLocation onPress={goLocation} text="YourLocation" />
     </View>
   );
