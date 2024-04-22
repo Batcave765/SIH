@@ -22,7 +22,7 @@ const Map = ({ navigation }) => {
 
   const getDet = async () => {
     try {
-      const response = await fetch("http://192.168.212.161:3001/api")
+      const response = await fetch("https://neersuraksha-nodeserver.onrender.com/api")
       const json = await response.json();
       console.log(json)
       setPoints(json);
