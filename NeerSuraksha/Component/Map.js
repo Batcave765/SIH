@@ -22,8 +22,9 @@ const Map = ({ navigation }) => {
 
   const getDet = async () => {
     try {
-      const response = await fetch("https://sih-d8bz.vercel.app/");
+      const response = await fetch("http://192.168.212.161:3001/api")
       const json = await response.json();
+      console.log(json)
       setPoints(json);
     } catch (error) {
       console.error(error);
@@ -60,7 +61,7 @@ const Map = ({ navigation }) => {
   const fetchImagesForMarker = async (markerId) => {
     try {
       const response = await fetch(
-        `https://sih-d8bz.vercel.app/id/${markerId}`
+        `http://192.168.212.161:3001/api/id/${markerId}`
       );
       const data = await response.json();
       setSelectedMarkerImages(data.image_url);
@@ -117,8 +118,8 @@ const Map = ({ navigation }) => {
                 latitude: point.latitude,
                 longitude: point.longitude,
               }}
-              title={point.predicted_class}
-              description={point.predicted_class}
+              title={point.classified_image}
+              description={point.classified_image}
               opacity={0.75}
               onPress={() => handleMarkerPress(point._id)}
             />
