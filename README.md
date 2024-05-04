@@ -36,7 +36,7 @@ To use NeerSuraksha, follow these steps:
 - [Sriram M](https://github.com/Batcave765)
 - [Hari Prasad MS](https://github.com/MSHariPrasad1210)
 - [Vinaya SV](https://github.com/vinaya-sv)
-- [Sahana S](https://github.com/)
+- [Sahana S](https://github.com/Sahana-1208)
 
 ## License
 
