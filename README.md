@@ -29,6 +29,15 @@ To use NeerSuraksha, follow these steps:
 3. **Install Dependencies**: `npm install`
 4. **Run the Application**: `npm start`
 
+## Collaborators
+
+- [Sabari Raj N](https://github.com/Sabari004)
+- [Sanjeevi V](https://github.com/sanjeevi7777)
+- [Sriram M](https://github.com/Batcave765)
+- [Hari Prasad MS](https://github.com/MSHariPrasad1210)
+- [Vinaya SV](https://github.com/vinaya-sv)
+- [Sahana S](https://github.com/)
+
 ## License
 
 This project is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/).
